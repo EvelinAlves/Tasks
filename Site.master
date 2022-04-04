@@ -1,0 +1,100 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Meu Aplicativo ASP.NET</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <div class="grid-master">
+            <div class="body-menu">
+                <div class="navbar-nav navbar-light flex-column ">
+                    <a runat="server" class="nav-item" href="~/tarefas?id=1">Br Doctor</a>
+                    <a runat="server" class="nav-item" href="~/tarefas?id=2">CFC-A</a>
+                    <a runat="server" class="nav-item" href="~/tarefas?id=3">CFC-B</a>
+                    <a runat="server" class="nav-item" href="~/tarefas?id=4">CFCWEB</a>
+                    <a runat="server" class="nav-item" href="~/tarefas?id=5">Focus</a>
+                    <a runat="server" class="nav-item" href="~/tarefas?id=6">SDPWIN</a>
+                    <a runat="server" class="nav-item" href="~/tarefas?id=7">SGF</a>
+                    <a runat="server" class="nav-item" href="~/tarefas?id=8">Site</a>
+                </div>
+            </div>
+            <div class="body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        </div>
+    </form>
+    <style>
+        .grid-master {
+            display: grid;
+            background-color: aquamarine;
+            justify-content: flex-start;
+            align-content: flex-start;
+            grid-template-columns: 180px 1fr;
+            grid-template-rows: 100vh;
+            grid-template-areas:
+            "menu content";
+        }
+        
+        .body-menu {
+            grid-area: menu;
+            background-color: #428bca;
+        }
+        
+        .body-content {
+            grid-area: content;
+            background-color: aliceblue;
+            padding: 10px 10px 10px 30px;
+        }
+        
+        .nav-item {
+            padding: 10px;
+        }
+
+        a.nav-item {
+            width: 100%;
+            background-color: #428bca;
+            color: white;
+            padding: 10px;
+        }
+
+        a.nav-item:hover {
+            background-color: #094569;
+            color: white;
+            text-decoration: none;
+        }
+    </style></body>
+</html>
