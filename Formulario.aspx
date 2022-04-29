@@ -19,23 +19,34 @@
                 <label class="form-check-label" for="app">Aplicativo</label>
             </div>
         </div>
+        <div class="form-row ddl">
+            <div class="form-group col-md-4">
+                <label for="txtSistemas">Sistema: </label>
+                <input runat="server" type="text" class="form-control form-control-sm" id="txtSistemas" readonly="true"/>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="ddlCliente">Cliente: </label>
+                <select datavaluefield="NomeCliente" runat="server" class="form-control form-control-sm" id="ddlCliente">
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="ddlUsuario">Usuario: </label>
+                <select runat="server" class="form-control form-control-sm" id="ddlUsuario">
+                </select>
+            </div>            
+        </div>
         <div class="form-row">
-
             <div class="form-group col-md-4">
                 <label for="txtSistema">Sistema: </label>
-                <input runat="server" type="text" class="form-control form-control-sm" id="txtSistema" readonly="true"/>
+                <input runat="server" class="form-control form-control-sm"  id="txtSistema" type="text" max="100" min="50" />
             </div>
             <div class="form-group col-md-4">
                 <label for="ddlClientes">Cliente: </label>
-                <select runat="server" class="form-control form-control-sm" id="ddlClientes">
-                  <option>Clientes</option>
-                </select>
+                <asp:DropDownList DataTextField="NomeCliente" DataValueField="IdCliente" ID="ddlClientes" runat="server" CssClass="form-control form-control-sm"></asp:DropDownList>
             </div>
             <div class="form-group col-md-4">
                 <label for="ddlUsuarios">Usuario: </label>
-                <select runat="server" class="form-control form-control-sm" id="ddlUsuarios">
-                  <option>Usuario</option>
-                </select>
+                <asp:DropDownList DataTextField="NomeUsuario" DataValueField="IdUsuario" ID="ddlUsuarios" runat="server" CssClass="form-control form-control-sm"></asp:DropDownList>
             </div>            
         </div>
         <div class="form-row">
@@ -73,7 +84,12 @@
         </div>
     </form>
 
+
+
     <style>
+        .ddl {
+            display: none;
+        }
         .form-row {
             padding: 5px 15px;
             align-items: center;

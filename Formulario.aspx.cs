@@ -15,10 +15,12 @@ public partial class Formulario : System.Web.UI.Page
             String paramsID = Request.QueryString["id"];
             String paramsAcao = Request.QueryString["acao"];
 
+            GetUsuarios();
+
             System.Configuration.Configuration rootWebConfig = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MyWebSiteRoot");
             System.Configuration.ConnectionStringSettings connString;
             connString = rootWebConfig.ConnectionStrings.ConnectionStrings["Tasks"];
-
+            
             if (paramsAcao == "editar")
             {
                 SqlConnection con = new SqlConnection();
@@ -33,17 +35,17 @@ public partial class Formulario : System.Web.UI.Page
                 SqlDataReader sqlread = cmd.ExecuteReader();
                 if (sqlread.Read())
                 {
+                    GetClientes(sqlread.GetValue(sqlread.GetOrdinal("Sistema")).ToString());
+
                     app.Checked = (sqlread.GetValue(sqlread.GetOrdinal("app"))).ToString()=="1";
                     txtTitulo.Value = sqlread.GetValue(sqlread.GetOrdinal("Titulo")).ToString();
                     ddlOrdem.Value = sqlread.GetValue(sqlread.GetOrdinal("Ordem")).ToString();
                     txtDescricao.Value = sqlread.GetValue(sqlread.GetOrdinal("Descricao")).ToString();
                     txtDataPrevisao.Value = sqlread.GetValue(sqlread.GetOrdinal("DataPrevisao")).ToString();
-
-
-
-
+                    ddlClientes.SelectedValue = sqlread.GetOrdinal("Cliente").ToString();
+                    ddlUsuarios.SelectedValue = sqlread.GetOrdinal("Cadastrante").ToString();
                 }
-                con.Close();
+                    con.Close();
 
             }
 
@@ -91,5 +93,44 @@ public partial class Formulario : System.Web.UI.Page
 
             con.Close();*/
         }
+    }
+
+    private void GetClientes(string id) {
+        System.Configuration.Configuration rootWebConfig = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MyWebSiteRoot");
+        System.Configuration.ConnectionStringSettings connString;
+        connString = rootWebConfig.ConnectionStrings.ConnectionStrings["Tasks"];
+
+        SqlConnection con = new SqlConnection();
+        con.ConnectionString = connString.ToString();
+        SqlCommand cmd = new SqlCommand();
+
+        cmd.Connection = con;
+        cmd.CommandText = "Select * from Clientes where Sistema = @id";
+        cmd.Parameters.AddWithValue("@id", id);
+        con.Open();
+
+        SqlDataReader sqlread = cmd.ExecuteReader();
+
+        ddlClientes.DataSource = sqlread;
+        ddlClientes.DataBind();
+    }
+
+    private void GetUsuarios() {
+        System.Configuration.Configuration rootWebConfig = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("/MyWebSiteRoot");
+        System.Configuration.ConnectionStringSettings connString;
+        connString = rootWebConfig.ConnectionStrings.ConnectionStrings["Tasks"];
+
+        SqlConnection con = new SqlConnection();
+        con.ConnectionString = connString.ToString();
+        SqlCommand cmd = new SqlCommand();
+
+        cmd.Connection = con;
+        cmd.CommandText = "Select * from Usuarios";
+        con.Open();
+
+        SqlDataReader sqlread = cmd.ExecuteReader();
+
+        ddlUsuarios.DataSource = sqlread;
+        ddlUsuarios.DataBind();
     }
 }
